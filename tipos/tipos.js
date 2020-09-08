@@ -90,16 +90,16 @@ usuario = {
     nome: 'Maria',
 };
 console.log(usuario);
-// Desafio
-/*
-    Criar um objeto funcionário com:
-    - Array de strings com os nomes dos supervisores
-    - Função de bater ponto que recebe a hora e retorna uma string
-        -> Ponto normal (<= 8 );
-        -> Fora do horário ( > 8 )
-*/
 var funcionario = {
     supervisores: ['Ana', 'Fernando'],
+    baterPonto: function (horario) {
+        if (horario <= 8)
+            return 'Ponto Normal';
+        return 'Fora do horário';
+    }
+};
+var funcionario2 = {
+    supervisores: ['Bia', 'Carlos'],
     baterPonto: function (horario) {
         if (horario <= 8)
             return 'Ponto Normal';
@@ -109,3 +109,63 @@ var funcionario = {
 console.log(funcionario.supervisores);
 console.log(funcionario.baterPonto(8));
 console.log(funcionario.baterPonto(10));
+// Union Types -> Com ele podemos usar mais de um tipo sem perder a questão da checagem!
+var nota = 10;
+console.log("Minha nota \u00E9 " + nota); // Template string
+nota = '10';
+console.log("Minha nota \u00E9 " + nota);
+// nota = true;
+// console.log(`Minha nota é ${nota}`);
+// Checando tipos
+var valor = 30;
+if (typeof valor === "number")
+    console.log("É um valor number!");
+else
+    console.log(typeof valor);
+// never 
+function falha(msg) {
+    throw new Error(msg);
+}
+// const produto = {
+//     nome: 'Sabão',
+//     preco: 4,
+//     validarProduto() {
+//         if(this.nome || this.nome.trim().length == 0){
+//             falha('Precisa ter um nome')
+//         }
+//         if(this.preco <= 0) {
+//             falha('Preco inválido!')
+//         }
+//     }
+// }
+// produto.validarProduto()
+var altura = 12;
+// altura = null
+var alturaOpcional = 12;
+alturaOpcional = null;
+var contato1 = {
+    nome: 'Fulano',
+    tel1: '98748752',
+    tel2: null
+};
+console.log(contato1.nome);
+console.log(contato1.tel1);
+console.log(contato1.tel2);
+var podeSerNulo = null; // any
+// podeSerNulo = 12
+console.log(podeSerNulo);
+// podeSerNulo = 'abc'
+console.log(podeSerNulo);
+var contaBancaria = {
+    saldo: 3600,
+    depositar: function (valor) {
+        this.saldo += valor;
+    }
+};
+var correntista = {
+    nome: 'Ana Silva',
+    contaBancaria: contaBancaria,
+    contatos: ['234567890', '987654321']
+};
+correntista.contaBancaria.depositar(3000);
+console.log(correntista);

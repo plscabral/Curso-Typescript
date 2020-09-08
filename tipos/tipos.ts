@@ -122,10 +122,15 @@ console.log(usuario);
         -> Fora do horário ( > 8 )
 */
 
-let funcionario: {
+
+// Alias -> É um nome ou apelido que damos a um determinado tipo que possa ser reutiilizado em locais diferentes!
+type Funcionario =  {
     supervisores: string[],
     baterPonto: (horario: number) => string
-} = {
+}
+
+
+let funcionario: Funcionario = {
     supervisores: ['Ana', 'Fernando'],
     baterPonto(horario: number): string {
         if(horario <= 8)
@@ -135,6 +140,112 @@ let funcionario: {
     }
 }
 
-console.log(funcionario.supervisores)
-console.log(funcionario.baterPonto(8))
-console.log(funcionario.baterPonto(10))
+let funcionario2: Funcionario = {
+    supervisores: ['Bia', 'Carlos'],
+    baterPonto(horario: number): string {
+        if(horario <= 8)
+            return 'Ponto Normal'
+
+        return 'Fora do horário';
+    }
+}
+
+console.log(funcionario.supervisores);
+console.log(funcionario.baterPonto(8));
+console.log(funcionario.baterPonto(10));
+
+
+// Union Types -> Com ele podemos usar mais de um tipo sem perder a questão da checagem!
+let nota: number | string = 10;
+console.log(`Minha nota é ${nota}`); // Template string
+nota = '10';
+console.log(`Minha nota é ${nota}`);
+// nota = true;
+// console.log(`Minha nota é ${nota}`);
+
+
+// Checando tipos
+let valor = 30;
+
+if(typeof valor === "number") 
+    console.log("É um valor number!");
+else
+    console.log(typeof valor);
+
+// never 
+function falha(msg: string): never {
+    throw new Error(msg)
+}
+
+// const produto = {
+//     nome: 'Sabão',
+//     preco: 4,
+//     validarProduto() {
+//         if(this.nome || this.nome.trim().length == 0){
+//             falha('Precisa ter um nome')
+//         }
+
+//         if(this.preco <= 0) {
+//             falha('Preco inválido!')
+//         }
+//     }
+// }
+
+// produto.validarProduto()
+
+let altura = 12;
+// altura = null
+
+let alturaOpcional: null | number = 12;
+alturaOpcional = null;
+
+type Contato = {
+    nome: string,
+    tel1: string,
+    tel2: string | null
+};
+
+const contato1: Contato = {
+    nome: 'Fulano',
+    tel1: '98748752',
+    tel2: null
+};
+
+console.log(contato1.nome);
+console.log(contato1.tel1);
+console.log(contato1.tel2);
+
+let podeSerNulo = null // any
+// podeSerNulo = 12
+console.log(podeSerNulo);
+// podeSerNulo = 'abc'
+console.log(podeSerNulo);
+
+// Desafio 2
+
+type ContaBancaria = {
+    saldo: number,
+    depositar: (valor: number) => void
+}
+
+let contaBancaria: ContaBancaria = {
+    saldo: 3600,
+    depositar(valor: number) {
+        this.saldo += valor;
+    }
+}
+
+type Correntista = {
+    nome: string,
+    contaBancaria: ContaBancaria,
+    contatos: string[]
+}
+
+let correntista: Correntista = {
+    nome: 'Ana Silva',
+    contaBancaria: contaBancaria,
+    contatos: ['234567890', '987654321']
+}
+
+correntista.contaBancaria.depositar(3000);
+console.log(correntista);
